@@ -1,0 +1,38 @@
+.div {
+  padding-bottom: 40px;
+  text-align: center;
+}
+.div label {
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.div input {
+  padding: 20px;
+  outline: none;
+  border: 2px solid black;
+  transition: 0.4s ease-in-out;
+}
+.div input:focus {
+  border: 2px solid skyblue;
+}
+.enter {
+  transform: translateY(-100%);
+  opacity: 0.1;
+}
+.enterActive {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 250ms ease-in;
+}
+
+.exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+.exitActive {
+  transform: translateY(-100%);
+  opacity: 0.1;
+  transition: all 250ms ease-in;
+}
