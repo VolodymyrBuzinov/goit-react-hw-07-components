@@ -3,40 +3,34 @@ import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit'
 import actions from '../actions/actions';
 
+const {
+  actionItemsRequest, actionItemsSuccess, actionItemsError, actionAddRequest,
+  actionAddSucess, actionAddError, actionDeleteRequest, actionDeleteSucess, actionDeleteError, actionFilter
+} = actions;
 
 const items = createReducer([], {
-  [actions.actionAdd]: (state, { type, payload }) => [payload, ...state],
-  [actions.actionDelete]: (state, { type, payload }) => state.filter(({ id }) => id !== payload)
+  [actionItemsSuccess]: (state, { type, payload }) => payload,
+  [actionAddSucess]: (state, { type, payload }) => [payload, ...state],
+  [actionDeleteSucess]: (state, { type, payload }) => state.filter(({ id }) => id !== payload)
 })
 const filter = createReducer('', {
-  [actions.actionFilter]: (state, { type, payload }) => payload
+  [actionFilter]: (state, { type, payload }) => payload
 })
 
-//До рефакторинга
-// const items = (state = [], { type, payload }) => {
-//   switch (type) {
-//     case actionTypes.ADD:
-//       return [payload, ...state];
-
-//     case actionTypes.DELETE:
-//       return state.filter(({ id }) => id !== payload);
-    
-//     default:
-//       return state;
-//   }
-// };
-
-// const filter = (state = '', { type, payload }) => {
-//   switch (type) {
-//     case actionTypes.FILTER:
-//       return payload;
-
-//     default:
-//       return state;
-//   }
-// };
+const loading = createReducer(false, {
+  [actionItemsRequest]: () => true,
+  [actionItemsSuccess]: () => false,
+  [actionItemsError]: () => false,
+  [actionAddRequest]: () => true,
+  [actionAddSucess]: () => false,
+  [actionAddError]: () => false,
+  [actionDeleteRequest]: () => true,
+  [actionDeleteSucess]: () => false,
+  [actionDeleteError]: () => false,
+})
 
 export default combineReducers({
   items,
-  filter,
+  filter, 
+  loading
 });

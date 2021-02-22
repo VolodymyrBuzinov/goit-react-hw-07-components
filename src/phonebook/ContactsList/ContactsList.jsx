@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './ContactList.module.css'
 import { TransitionGroup , CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import actions from '../../redux/phonebook/actions/actions';
+import actions from '../../redux/phonebook/actions/operations';
 function ContactsList({ contacts, onContactDelete}) {    
     return (
         <>   
@@ -31,7 +31,7 @@ function ContactsList({ contacts, onContactDelete}) {
 ContactsList.propTypes = {
     contacts: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.string.isRequired,
+            id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
             number: PropTypes.string.isRequired,
         }                        

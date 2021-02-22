@@ -8,7 +8,7 @@ import { CSSTransition } from 'react-transition-group';
 import ErrorMessage from './messages/errorMessage';
 import SucessMessage from './messages/sucessMessage'
 import { connect } from 'react-redux';
-import actions from '../redux/phonebook/actions/actions';
+import actions from '../redux/phonebook/actions/operations';
 
 
 class Phonebook extends Component {
@@ -19,6 +19,11 @@ class Phonebook extends Component {
       sucess: false,
     };
   
+  
+  
+  componentDidMount() {
+    this.props.showItems();
+  }
   onInputChange = evt => {    
     this.setState({ [evt.target.name]: evt.target.value });
     };    
@@ -45,6 +50,14 @@ class Phonebook extends Component {
   render() {  
     const { error, sucess } = this.state;    
     return (<>
+      {this.props.loading && <div className={styles.skChase}>
+        <div className={styles.skChaseDot}></div>
+  <div className={styles.skChaseDot}></div>
+  <div className={styles.skChaseDot}></div>
+  <div className={styles.skChaseDot}></div>
+  <div className={styles.skChaseDot}></div>
+  <div className={styles.skChaseDot}></div>
+</div>}
         <Section title='Phonebook'>
             <Input name={this.state.name}
           number={this.state.number}          
@@ -67,11 +80,13 @@ class Phonebook extends Component {
 }
 
 const mapStateToProps = state => ({  
-  contacts: state.contacts.items
+  contacts: state.contacts.items,
+  loading: state.contacts.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
   onAddContact: (name, phone) => dispatch(actions.actionAdd(name, phone)),
+  showItems: () => dispatch(actions.fetchContacts()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Phonebook);
