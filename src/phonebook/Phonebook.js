@@ -9,7 +9,7 @@ import ErrorMessage from './messages/errorMessage';
 import SucessMessage from './messages/sucessMessage'
 import { connect } from 'react-redux';
 import actions from '../redux/phonebook/actions/operations';
-
+import selectors from '../redux/phonebook/selectors/selectors';
 
 class Phonebook extends Component {
     state = {      
@@ -80,8 +80,8 @@ class Phonebook extends Component {
 }
 
 const mapStateToProps = state => ({  
-  contacts: state.contacts.items,
-  loading: state.contacts.loading,
+  contacts: selectors.getItems(state),
+  loading: selectors.getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({

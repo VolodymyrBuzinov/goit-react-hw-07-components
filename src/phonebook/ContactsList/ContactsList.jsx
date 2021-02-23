@@ -4,6 +4,7 @@ import styles from './ContactList.module.css'
 import { TransitionGroup , CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import actions from '../../redux/phonebook/actions/operations';
+import selectors from '../../redux/phonebook/selectors/selectors';
 function ContactsList({ contacts, onContactDelete}) {    
     return (
         <>   
@@ -39,16 +40,10 @@ ContactsList.propTypes = {
     ),
   onDeleteContact: PropTypes.func,
 }
-
- const getVisibleTasks = (contacts, filter) => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
-    );
-};
   
 const mapStateToProps = state => {    
 return {
-    contacts: getVisibleTasks(state.contacts.items, state.contacts.filter)
+    contacts: selectors.getVisibleContacts(state)
 }
 }   
 

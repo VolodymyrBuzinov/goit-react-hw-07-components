@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styles from './Filter.module.css'
 import actions from '../../redux/phonebook/actions/actions';
 import { CSSTransition } from 'react-transition-group';
+import selectors from '../../redux/phonebook/selectors/selectors';
 
 function Filter({value, onfindContact, items}) {
   return (
@@ -22,8 +23,8 @@ Filter.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  value: state.contacts.filter,
-  items: state.contacts.items,
+  value: selectors.getFilter(state),
+  items: selectors.getItems(state),
 });
 const mapDispatchToProps = dispatch => ({
   onfindContact: (value) => dispatch(actions.actionFilter(value)),
